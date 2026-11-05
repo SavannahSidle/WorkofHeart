@@ -22,5 +22,8 @@ This is an interface-study prototype, not a production shop. No authentication, 
 
 These are test instructions, not claims that interactive browser tests have been executed.
 
+## Manage page (added later)
+`manage.html` is a private shop-manager page (excluded from search indexes, linked subtly in the shop footer). It publishes real listings to the live site: photo, description, price, post. It requires a one-time GitHub fine-grained personal access token scoped to only this repository with Contents read/write, pasted by Tracie and stored in her browser's local storage only. Posting uploads the (resized) photo to `images/` and commits `listings.json` through the GitHub contents API; the storefront fetches `listings.json` and replaces the sample pieces when real listings exist. Edit, mark sold, and delete are supported. Sold pieces stay visible with a Sold badge and a disabled button. Known limits: no atomic multi-file commits (an interrupted post can leave an orphaned image), token can expire, and concurrent edits from two tabs can conflict (409, retried by refreshing). Sample pieces show whenever `listings.json` is absent or empty.
+
 ## Production roadmap
 Add authenticated seller access with server-enforced authorization; a shared database and object storage; server-side price/upload validation; hosted payment checkout with secrets kept server-side; verified, idempotent payment webhooks; atomic reservations for unique inventory; order and fulfillment records; merchant contact details and delivery, returns, tax and privacy configuration. Test simultaneous purchases, delayed/failed payments, expired reservations and refunds before accepting money.
