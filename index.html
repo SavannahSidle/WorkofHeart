@@ -78,7 +78,7 @@ var PRODUCTS={mug:{name:'The everyday mug',price:3800},linen:{name:'Sunday linen
 var bag;try{bag=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){bag=[]}
 if(!Array.isArray(bag))bag=[];
 var money=function(n){return new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD'}).format(n/100)};
-function save(){localStorage.setItem(KEY,JSON.stringify(bag));renderBadge()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(bag))}catch(e){}renderBadge()}
 function renderBadge(){document.getElementById('count').textContent=bag.reduce(function(s,i){return s+i.qty},0)}
 function renderBag(){
   var list=document.getElementById('bagItems');list.innerHTML='';

@@ -1,253 +1,130 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#FBF8F2"><meta name="robots" content="noindex"><meta name="description" content="Manage the shop — Tracie's Works of Heart"><title>Manage — Tracie’s Works of Heart</title><style>
-:root{--paper:#FBF8F2;--ink:#2F3A31;--muted:#6B7369;--line:#E7E0D2;--green:#3B5241;--clay:#A4663B;--card:#FFFFFF}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,sans-serif}
-button,a{touch-action:manipulation}
-a{color:inherit}
-button{font:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--clay);outline-offset:3px;border-radius:6px}
-.wrap{max-width:700px;margin:auto;padding:0 22px}
-.skip{position:absolute;left:-9999px}
-.skip:focus{left:12px;top:12px;background:#fff;padding:9px 14px;border-radius:10px;z-index:100}
-header{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 0 2px}
-.brand{font:400 21px Georgia,'Times New Roman',serif;text-decoration:none}
-.brand .clay{color:var(--clay)}
-h1{font:400 34px Georgia,'Times New Roman',serif;letter-spacing:-.5px;margin:26px 0 6px}
-.sub{color:var(--muted);margin:0 0 26px}
-.card{background:var(--card);border:1px solid #F0EAE0;border-radius:22px;padding:22px;box-shadow:0 8px 24px rgba(74,60,34,.07)}
-label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:20px 0 7px;text-transform:uppercase;letter-spacing:.09em}
-form label:first-of-type{margin-top:2px}
-textarea,input[type=password],input[type=number]{width:100%;border:1.5px solid var(--line);border-radius:12px;background:#fff;padding:12px 14px;font:inherit;color:var(--ink)}
-textarea{min-height:104px;resize:vertical}
-input[type=file]{display:none}
-.photo-drop{display:block;border:2px dashed #C9BEA6;border-radius:16px;background:#FBF7EC;padding:24px 18px;text-align:center;color:var(--muted);cursor:pointer}
-.photo-drop img{display:block;width:100%;max-height:250px;object-fit:contain;border-radius:12px;margin:0 auto 6px}
-.photo-hint{font-size:12px;color:#A39A86;margin:6px 0 0}
-.btn{border:0;background:var(--green);color:#fff;border-radius:999px;padding:14px 32px;font-size:16px;box-shadow:0 6px 18px rgba(59,82,65,.25)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn:active{transform:translateY(1px)}
-.ghost{background:transparent;color:var(--green);box-shadow:none;border:1.5px solid var(--green)}
-.post-row{display:flex;gap:12px;align-items:center;margin-top:22px;flex-wrap:wrap}
-.status{margin:16px 0 0;color:var(--muted);font-size:14px;min-height:22px}
-.status.err{color:#A33B2E}
-.status a{color:var(--green);font-weight:600}
-.pieces{margin:38px 0 8px}
-.pieces h2{font:400 26px Georgia,'Times New Roman',serif;margin:0 0 4px}
-.pieces .count{color:var(--muted);font-size:14px;margin:0 0 8px}
-.row{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #F0EAE0}
-.row:last-child{border-bottom:0}
-.row .thumb{width:64px;height:64px;border-radius:12px;object-fit:cover;background:#F4EEE0;flex:none}
-.row .meta{flex:1;min-width:0}
-.row .meta strong{display:block;font-size:15px}
-.row .meta .m{color:var(--muted);font-size:13px}
-.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:1px 9px;margin-left:8px;vertical-align:middle}
-.tag.sold{background:#F3E1D9;color:#96503A}
-.tag.ok{background:#E4ECDD;color:#3E5A45}
-.rowbtns{display:flex;gap:8px;flex-wrap:wrap}
-.rowbtns button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:13px;color:var(--ink)}
-.rowbtns button.danger{color:#A33B2E;border-color:#E5C9BF}
-.empty{color:var(--muted);text-align:center;padding:26px 0 12px}
-.setup p{color:var(--muted);font-size:15px}
-.setup ol{color:var(--muted);padding-left:20px;font-size:15px}
-.setup code{background:#F3EDDC;padding:2px 7px;border-radius:6px;font-size:13px}
-.setup input{margin:12px 0 4px}
-.setup .btn{margin-top:18px}
-.foot{padding:34px 0 46px;text-align:center;color:#8A7B68;font-size:13px}
-.foot a{color:var(--muted)}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(10px);background:var(--green);color:#fff;padding:11px 22px;border-radius:999px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:60}
-.toast.show{opacity:1;transform:translateX(-50%)}
-</style></head><body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><a class="brand" href="index.html">Tracie’s Works of <span class="clay">Heart</span></a><button class="btn ghost" style="padding:9px 16px;font-size:14px" id="logout" hidden>Disconnect</button></header><main id="main"><section class="setup card" id="setup" hidden><h1>Connect the shop</h1><p class="sub">One-time setup — this page publishes to the live site through your GitHub account.</p><p><strong style="color:var(--ink)">How it works:</strong> you paste a private access token below. It’s saved only in this browser and sent only to GitHub.</p><ol><li>Sign in to GitHub and open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">New fine-grained personal access token</a>.</li><li>Give it any name (for example <code>shop manager</code>) and an expiry you’re comfortable with.</li><li>Under <strong>Repository access</strong>, choose <strong>Only select repositories</strong> → <code>SavannahSidle/WorkofHeart</code>.</li><li>Under <strong>Permissions → Repository permissions</strong>, set <strong>Contents</strong> to <strong>Read and write</strong>. Leave everything else alone.</li><li>Generate the token, copy it, and paste it below.</li></ol><label for="token">Paste token</label><input type="password" id="token" placeholder="github_pat_…" autocomplete="off"><p class="photo-hint">If it ever stops working, come back here and paste a fresh one.</p><button class="btn" id="saveToken">Connect</button><p class="status" id="setupStatus" role="status" aria-live="polite"></p></section><section id="app" hidden><h1>Add a piece</h1><p class="sub">Photo, description, price — that’s it. The first sentence of your description becomes the piece’s title.</p><form class="card" id="form" novalidate><label for="photo">Photo</label><label class="photo-drop" for="photo" id="photoDrop"><span id="dropText">📷 Tap to take or choose a photo</span></label><input type="file" id="photo" accept="image/*"><p class="photo-hint" id="photoHint">JPEG, PNG or WebP. Large photos are resized automatically.</p><label for="description">Description</label><textarea id="description" placeholder="The everyday mug. Hand-shaped stoneware with a soft moss glaze…" required></textarea><label for="price">Price (CAD)</label><input type="number" id="price" inputmode="decimal" min="1" step="0.01" placeholder="38.00" required><div class="post-row"><button type="submit" class="btn" id="postBtn">Post</button><button type="button" class="btn ghost" id="cancelEdit" hidden>Cancel edit</button></div><p class="status" id="status" role="status" aria-live="polite"></p></form><section class="pieces"><h2>Current pieces</h2><p class="count" id="count"></p><div id="list"></div></section></section></main><footer class="foot"><p><a href="index.html">← Back to the shop</a></p></footer></div><div class="toast" id="toast" role="status" aria-live="polite"></div><script>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FBF8F2">
+<title>Manage | Tracie’s Works of Heart</title>
+<style>
+:root{--paper:#fbf8f2;--ink:#2f3a31;--muted:#62695e;--line:#dcded2;--green:#3b5241;--clay:#a4663b;--text-sm:.875rem;--text-base:1rem;--text-title:clamp(1.75rem,4vw,2rem)}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font:var(--text-base)/1.5 system-ui,-apple-system,sans-serif}button,input,textarea{font:inherit}button,a{touch-action:manipulation}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}a{color:inherit}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--clay);outline-offset:4px}.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:8px;background:white;padding:12px;z-index:10}
+.wrap{max-width:600px;margin:auto;padding:0 24px}header{padding:24px 0;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font:1.125rem Georgia,serif;text-decoration:none}.brand span{color:var(--clay)}.back{font-size:var(--text-sm);display:flex;align-items:center;min-height:44px;white-space:nowrap}main{padding:16px 0 48px}h1{font:400 var(--text-title)/1.2 Georgia,serif;margin:0 0 24px}form{background:white;border:1px solid #eee9e0;border-radius:20px;padding:24px;display:grid;gap:24px}label{font-weight:600;display:block;margin-bottom:8px}textarea,input[type=number]{border:1px solid #cdd2c5;border-radius:10px;width:100%;padding:12px 16px;background:#fff;color:var(--ink);min-height:52px}textarea{min-height:112px;resize:vertical}#photo{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}.photo{position:relative}#choose{width:100%;min-height:164px;border:1.5px dashed #b7c1b0;border-radius:12px;background:#f6f6ef;color:var(--green);display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;padding:24px;font-weight:600}#choose svg{width:32px;height:32px}#preview{display:block;max-width:100%;max-height:260px;object-fit:contain;border-radius:8px}#preview[hidden]{display:none}#preview:not([hidden])~svg{display:none}.pricebox{position:relative}.currency{position:absolute;top:12px;left:16px;color:var(--muted);pointer-events:none}#price{padding-left:36px}.primary{width:100%;min-height:52px;background:var(--green);color:white;border:0;border-radius:10px;padding:12px 20px;font-weight:600}.secondary{min-height:44px;padding:8px 16px;border:1px solid var(--line);border-radius:8px;color:var(--green);background:white}.status{font-size:var(--text-sm);margin:0;color:var(--muted)}.status:empty{display:none}.status.error{color:#9d3326}.notice{font-size:var(--text-sm);margin:16px 0 0;color:var(--muted)}h2{font-size:1.125rem;margin:40px 0 16px;font-weight:600}.piece{padding:16px 0;border-bottom:1px solid var(--line)}.details{display:flex;gap:16px;align-items:center}.details img{width:64px;height:64px;object-fit:cover;border-radius:8px}.details strong{display:block}.details p{margin:4px 0;color:var(--muted);font-size:var(--text-sm)}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.empty{color:var(--muted);font-size:var(--text-sm)}.confirm{padding:16px;background:#f1e5dd;border-radius:10px;margin-top:12px}.confirm p{margin:0 0 12px}.confirm button{margin-right:8px}.danger{color:#9d3326}#cancel{margin-top:-8px}footer{text-align:center;font-size:var(--text-sm);color:var(--muted);padding:0 0 32px}footer a{display:inline-flex;align-items:center;min-height:44px}@media(max-width:420px){.wrap{padding:0 16px}form{padding:20px}header{gap:8px}.brand{font-size:1rem}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+<header><a class="brand" href="index.html">Tracie’s Works of <span>Heart</span></a><a class="back" href="index.html">View shop</a></header>
+<main id="main">
+<h1>Add a piece</h1>
+<form id="form" novalidate>
+<div class="photo">
+<input id="photo" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif">
+<button type="button" id="choose" aria-controls="photo">
+<img id="preview" alt="Your selected photo" hidden>
+<svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M11 8l2-3h6l2 3h5a3 3 0 013 3v14a3 3 0 01-3 3H6a3 3 0 01-3-3V11a3 3 0 013-3h5z" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="18" r="6" stroke="currentColor" stroke-width="1.7"/></svg>
+<span id="chooseText">Choose photo</span>
+</button>
+</div>
+<div><label for="description">Description</label><textarea id="description" placeholder="Tell us a little about this piece." maxlength="3000" required></textarea></div>
+<div><label for="price">Price <span style="font-weight:400;color:var(--muted)">(CAD)</span></label><div class="pricebox"><span class="currency">$</span><input id="price" type="number" inputmode="decimal" min="0.01" max="999999" step="0.01" placeholder="0.00" required></div></div>
+<button type="submit" class="primary" id="post">Post</button>
+<button type="button" class="secondary" id="cancel" hidden>Cancel edit</button>
+<p id="status" class="status" role="status" aria-live="polite"></p>
+</form>
+<p id="publishingNote" class="notice" hidden>Posting isn’t ready yet. The site owner needs to finish connecting publishing. Nothing you enter here will be posted until then.</p>
+<section aria-labelledby="piecesTitle"><h2 id="piecesTitle">Your pieces</h2><div id="list"><p class="empty">Loading your pieces…</p></div></section>
+</main>
+<footer><a href="index.html">Back to the shop</a></footer>
+</div>
+<script>
 'use strict';
-var API='https://api.github.com',REPO='repos/SavannahSidle/WorkofHeart',TKEY='tracie-gh-token';
-var token=localStorage.getItem(TKEY)||'';
-var listings=[],sha=null,editing=null,photoB64=null,busy=false;
-function $(id){return document.getElementById(id)}
-function setStatus(msg,isErr){var s=$('status');s.textContent=msg||'';s.className='status'+(isErr?' err':'')}
-function setSetupStatus(msg,isErr){var s=$('setupStatus');s.textContent=msg||'';s.className='status'+(isErr?' err':'')}
-function toast(m){var el=$('toast');el.textContent=m;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove('show')},2400)}
-function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]})}
-function ghErr(msg,status){var e=new Error(msg);e.status=status;return e}
-function b64decode(b64){return new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\n/g,'')),function(c){return c.charCodeAt(0)}))}
-function b64encode(str){return btoa(unescape(encodeURIComponent(str)))}
-function nameOf(d){var m=String(d).match(/^[^.!?]*[.!?]/);var n=(m?m[0]:d).replace(/\s+/g,' ').replace(/[.!?…]+$/,'').trim();return n||'Untitled piece'}
-function money(n){return new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD'}).format(n/100)}
-function randId(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
-function friendly(e){
-  if(!e)return'Something went wrong — please try again.';
-  if(e.message==='auth')return'Your token didn’t work — reconnect it.';
-  if(e.message==='network')return'Could not reach GitHub — check your connection.';
-  if(e.status===409||/sha/i.test(e.message||''))return'The shop was changed somewhere else — wait a moment and try again.';
-  if(e.status===403)return'GitHub said no for now (rate limit) — wait a minute and try again.';
-  return e.message||'Something went wrong — please try again.';
+const $=id=>document.getElementById(id),REPO='repos/SavannahSidle/WorkofHeart';
+let token='';try{token=localStorage.getItem('tracie-gh-token')||''}catch{}
+let listings=[],sha=null,editing=null,photoData='',busy=false,reading=false;
+const money=n=>new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD'}).format(n/100);
+const title=d=>String(d).split(/[.!?]/)[0].trim()||'Handmade piece';
+function status(text,error=false){$('status').textContent=text;$('status').className='status'+(error?' error':'')}
+function readiness(){$('publishingNote').hidden=!!token}
+function encode(text){return btoa(Array.from(new TextEncoder().encode(text),b=>String.fromCharCode(b)).join(''))}
+function decode(text){return new TextDecoder().decode(Uint8Array.from(atob(text.replace(/\n/g,'')),c=>c.charCodeAt(0)))}
+async function api(method,path,body){
+  if(!token)throw Error('Posting isn’t connected yet. Your piece has not been posted.');
+  const response=await fetch('https://api.github.com/'+REPO+'/contents/'+path,{method,headers:{Authorization:'Bearer '+token,Accept:'application/vnd.github+json','Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok){const e=Error(response.status===401||response.status===403?'Posting isn’t available. Your changes have not been saved.':response.status===409?'The shop changed on another device. Reload before trying again.':'Couldn’t save this change. Please try again.');e.code=response.status;throw e}
+  return data;
 }
-function api(method,path,body){
-  return fetch(API+'/'+path,{method:method,headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},body:body?JSON.stringify(body):undefined})
-    .catch(function(){throw ghErr('network',0)})
-    .then(function(r){
-      if(r.status===401)throw ghErr('auth',401);
-      if(!r.ok)return r.json().catch(function(){return{}}).then(function(j){throw ghErr(j.message||('HTTP '+r.status),r.status)});
-      return r.status===204?null:r.json();
+async function load(){
+  if(token){try{const file=await api('GET','listings.json');sha=file.sha;listings=JSON.parse(decode(file.content)).listings||[]}catch(e){if(e.code!==404)status(e.message,true)}}
+  else{try{const r=await fetch('listings.json',{cache:'no-store'});if(r.ok)listings=(await r.json()).listings||[]}catch{}}
+  render();
+}
+async function save(next,message){
+  const result=await api('PUT','listings.json',{message,content:encode(JSON.stringify({version:1,listings:next},null,2)),...(sha?{sha}: {})});
+  sha=result.content.sha;listings=next;render();
+}
+function render(){
+  const list=$('list');list.replaceChildren();
+  if(!listings.length){const p=document.createElement('p');p.className='empty';p.textContent='Your pieces will appear here after you post them.';list.append(p);return}
+  for(const item of [...listings].reverse()){
+    const article=document.createElement('article');article.className='piece';
+    const details=document.createElement('div');details.className='details';
+    const img=document.createElement('img');img.src=item.image;img.alt='';img.loading='lazy';
+    const info=document.createElement('div'),name=document.createElement('strong'),price=document.createElement('p');name.textContent=title(item.description);price.textContent=money(item.price)+' CAD'+(item.sold?' · Sold':'');info.append(name,price);details.append(img,info);article.append(details);
+    const actions=document.createElement('div');actions.className='actions';
+    const action=(label,fn)=>{const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=label;b.disabled=busy||!token;b.onclick=fn;actions.append(b);return b};
+    action('Edit',()=>edit(item));
+    action(item.sold?'Mark available':'Mark sold',()=>change(listings.map(x=>x.id===item.id?{...x,sold:!x.sold}:x),'Update availability'));
+    action('Delete',()=>{
+      if(article.querySelector('.confirm'))return;
+      const box=document.createElement('div');box.className='confirm';
+      const p=document.createElement('p');p.textContent='Delete this piece from the shop?';
+      const yes=document.createElement('button');yes.type='button';yes.className='secondary danger';yes.textContent='Delete piece';yes.onclick=()=>change(listings.filter(x=>x.id!==item.id),'Remove piece');
+      const no=document.createElement('button');no.type='button';no.className='secondary';no.textContent='Keep it';no.onclick=()=>box.remove();box.append(p,yes,no);article.append(box);
     });
-}
-function pull(){
-  return api('GET',REPO+'/contents/listings.json').then(function(f){
-    sha=f.sha;var data=JSON.parse(b64decode(f.content));listings=Array.isArray(data.listings)?data.listings:[];
-  }).catch(function(e){
-    if(e.status===404){sha=null;listings=[];return}
-    throw e;
-  });
-}
-function push(msg){
-  var b64=b64encode(JSON.stringify({version:1,listings:listings},null,2));
-  return api('PUT',REPO+'/contents/listings.json',{message:msg,content:b64,sha:sha||undefined}).then(function(f){if(f&&f.content)sha=f.content.sha});
-}
-function putImage(id,b64){
-  return api('PUT',REPO+'/contents/images/'+id+'.jpg',{message:'Add photo for '+id,content:b64});
-}
-function deleteImagePath(path){
-  return api('GET',REPO+'/contents/'+path).then(function(f){
-    return api('DELETE',REPO+'/contents/'+path,{message:'Remove photo',sha:f.sha});
-  }).catch(function(){});
-}
-function processPhoto(file){
-  return new Promise(function(res,rej){
-    if(!/^image\//.test(file.type))return rej(new Error('That file isn’t a photo'));
-    var img=new Image(),url=URL.createObjectURL(file);
-    img.onload=function(){
-      var max=1200,sc=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
-      var c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*sc));c.height=Math.max(1,Math.round(img.naturalHeight*sc));
-      c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);
-      res(c.toDataURL('image/jpeg',0.82).split(',')[1]);
-    };
-    img.onerror=function(){URL.revokeObjectURL(url);rej(new Error('Could not read that photo'))};
-    img.src=url;
-  });
-}
-function renderList(){
-  var l=$('list');l.innerHTML='';
-  $('count').textContent=listings.length?(listings.length+' piece'+(listings.length===1?'':'s')+' on the site'):'';
-  if(!listings.length){l.innerHTML='<p class="empty">Nothing posted yet — the shop is still showing the sample pieces.</p>';return}
-  listings.slice().reverse().forEach(function(it){
-    var row=document.createElement('div');row.className='row';
-    row.innerHTML='<img class="thumb" src="'+esc(it.image)+'?t='+Date.now()+'" alt="" onerror="this.style.visibility=\'hidden\'"><div class="meta"><strong>'+esc(nameOf(it.description))+(it.sold?'<span class="tag sold">Sold</span>':'<span class="tag ok">Available</span>')+'</strong><span class="m">'+money(it.price)+' CAD</span></div>';
-    var btns=document.createElement('div');btns.className='rowbtns';
-    function add(label,fn,cls){var b=document.createElement('button');b.type='button';b.textContent=label;if(cls)b.className=cls;b.onclick=fn;btns.appendChild(b);return b}
-    add('Edit',function(){startEdit(it)});
-    add(it.sold?'Mark available':'Mark sold',function(){
-      it.sold=!it.sold;
-      busyWork(it.sold?'Marking sold…':'Marking available…',function(){return push('Update: '+nameOf(it.description)+(it.sold?' (sold)':''))});
-    });
-    var del=add('Delete',null,'danger');
-    del.onclick=function(){
-      if(!del.dataset.arm){
-        del.dataset.arm='1';del.textContent='Really delete?';
-        setTimeout(function(){if(del.dataset.arm){delete del.dataset.arm;del.textContent='Delete'}},2800);
-        return;
-      }
-      delete del.dataset.arm;del.textContent='Delete';
-      busyWork('Deleting…',function(){
-        var name=nameOf(it.description);
-        listings=listings.filter(function(x){return x!==it});
-        return push('Remove: '+name).then(function(){return deleteImagePath(it.image)});
-      });
-    };
-    row.appendChild(btns);l.appendChild(row);
-  });
-}
-function busyWork(label,fn){
-  if(busy)return;busy=true;setStatus(label);
-  fn().then(function(){return pull()}).then(function(){renderList();setStatus('');toast('Done')}).catch(function(e){
-    if(e&&e.message==='auth'){showSetup('That token didn’t work — paste a fresh one.');return}
-    setStatus(friendly(e),true);
-  }).then(function(){busy=false});
-}
-function startEdit(it){
-  editing=it;photoB64=null;
-  $('description').value=it.description;
-  $('price').value=(it.price/100).toFixed(2);
-  $('postBtn').textContent='Save changes';
-  $('cancelEdit').hidden=false;
-  $('photoHint').textContent='Leave the photo as-is, or choose a new one.';
-  $('photoDrop').innerHTML='<img src="'+esc(it.image)+'?t='+Date.now()+'" alt="Current photo"><span id="dropText">Tap to change the photo</span>';
-  window.scrollTo({top:0,behavior:'smooth'});
-  $('description').focus();
-}
-function resetForm(){
-  editing=null;photoB64=null;$('form').reset();
-  $('postBtn').textContent='Post';$('cancelEdit').hidden=true;
-  $('photoHint').textContent='JPEG, PNG or WebP. Large photos are resized automatically.';
-  $('photoDrop').innerHTML='<span id="dropText">📷 Tap to take or choose a photo</span>';
-  setStatus('');
-}
-$('cancelEdit').addEventListener('click',resetForm);
-$('photo').addEventListener('change',function(){
-  var f=this.files&&this.files[0];if(!f)return;
-  setStatus('Reading photo…');
-  processPhoto(f).then(function(b64){
-    photoB64=b64;
-    $('photoDrop').innerHTML='<img src="data:image/jpeg;base64,'+b64+'" alt="Photo preview"><span id="dropText">Tap to change the photo</span>';
-    setStatus('');
-  }).catch(function(e){setStatus(e.message,true)});
-});
-$('form').addEventListener('submit',function(e){
-  e.preventDefault();
-  if(busy)return;
-  var desc=$('description').value.trim();
-  var price=Math.round(parseFloat($('price').value)*100);
-  if(!desc){setStatus('Add a description first — the first sentence becomes the title.',true);$('description').focus();return}
-  if(!isFinite(price)||price<=0){setStatus('Enter a price, like 38.00',true);$('price').focus();return}
-  if(!editing&&!photoB64){setStatus('Choose a photo of the piece.',true);return}
-  if(editing&&!photoB64&&!editing.image){setStatus('Choose a photo of the piece.',true);return}
-  busy=true;$('postBtn').disabled=true;
-  setStatus(editing?'Saving…':'Posting…');
-  var work;
-  if(editing){
-    var it=editing,oldImage=it.image;
-    work=Promise.resolve();
-    if(photoB64){
-      var nid=randId();
-      work=work.then(function(){return putImage(nid,photoB64)}).then(function(){it.image='images/'+nid+'.jpg'});
-    }
-    it.description=desc;it.price=price;it.updatedAt=Date.now();
-    work=work.then(function(){return push('Update: '+nameOf(desc))});
-    if(oldImage&&it.image!==oldImage)work=work.then(function(){return deleteImagePath(oldImage)});
-  }else{
-    var id=randId();
-    work=(photoB64?putImage(id,photoB64):Promise.resolve()).then(function(){
-      listings.push({id:id,description:desc,price:price,sold:false,image:'images/'+id+'.jpg',updatedAt:Date.now()});
-      return push('Post: '+nameOf(desc));
-    });
+    article.append(actions);list.append(article);
   }
-  work.then(function(){return pull()}).then(function(){
-    renderList();resetForm();
-    setStatus('Posted — live on the site within a minute or two: https://savannahsidle.github.io/WorkofHeart/');
-  }).catch(function(e){
-    if(e&&e.message==='auth'){showSetup('That token didn’t work — paste a fresh one.');return}
-    setStatus(friendly(e),true);
-  }).then(function(){busy=false;$('postBtn').disabled=false});
-});
-function showSetup(msg){
-  $('app').hidden=true;$('setup').hidden=false;$('logout').hidden=true;
-  if(msg)setSetupStatus(msg,true);
 }
-function connect(){
-  if(!token){showSetup();return}
-  $('app').hidden=true;$('setup').hidden=true;$('logout').hidden=true;
-  pull().then(function(){
-    renderList();
-    $('app').hidden=false;$('logout').hidden=false;
-  }).catch(function(e){
-    if(e&&e.message==='auth'){showSetup('That token didn’t work — paste a fresh one.');return}
-    showSetup('Could not reach GitHub — check your connection, then reconnect.');
-  });
+async function change(next,message){
+  if(busy)return;busy=true;render();status('Saving…');
+  try{await save(next,message);status('Saved. The shop will update shortly.')}catch(e){status(e.message,true)}finally{busy=false;render()}
 }
-$('saveToken').addEventListener('click',function(){
-  var v=$('token').value.trim();
-  if(!v){setSetupStatus('Paste the token first.',true);return}
-  token=v;localStorage.setItem(TKEY,v);connect();
-});
-$('token').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();$('saveToken').click()}});
-$('logout').addEventListener('click',function(){localStorage.removeItem(TKEY);token='';showSetup('Disconnected.');$('token').value=''});
-connect();
-</script></body></html>
+function reset(){editing=null;photoData='';$('form').reset();$('preview').hidden=true;$('preview').removeAttribute('src');$('chooseText').textContent='Choose photo';$('post').textContent='Post';$('cancel').hidden=true;document.querySelector('h1').textContent='Add a piece'}
+function edit(item){editing=item;photoData='';$('description').value=item.description;$('price').value=(item.price/100).toFixed(2);$('preview').src=item.image;$('preview').hidden=false;$('chooseText').textContent='Change photo';$('post').textContent='Save changes';$('cancel').hidden=false;document.querySelector('h1').textContent='Edit piece';status('');window.scrollTo({top:0,behavior:'smooth'})}
+$('cancel').onclick=()=>{reset();status('')};
+$('choose').onclick=()=>$('photo').click();
+$('photo').onchange=async()=>{
+  const file=$('photo').files[0];if(!file)return;
+  if(!file.type.startsWith('image/')){status('Please choose a photo.',true);return}
+  reading=true;$('post').disabled=true;status('Preparing photo…');
+  let url;
+  try{
+    url=URL.createObjectURL(file);const img=new Image();img.src=url;await img.decode();
+    const scale=Math.min(1,1200/Math.max(img.naturalWidth,img.naturalHeight)),canvas=document.createElement('canvas');canvas.width=Math.round(img.naturalWidth*scale);canvas.height=Math.round(img.naturalHeight*scale);const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
+    const data=canvas.toDataURL('image/jpeg',.82);photoData=data.split(',')[1];$('preview').src=data;$('preview').hidden=false;$('chooseText').textContent='Change photo';status('');
+  }catch{status('This photo couldn’t be opened. Please choose a JPEG or PNG.',true)}
+  finally{if(url)URL.revokeObjectURL(url);reading=false;$('post').disabled=false}
+};
+$('form').onsubmit=async event=>{
+  event.preventDefault();if(busy||reading)return;
+  if(!photoData&&!editing){status('Choose a photo first.',true);$('choose').focus();return}
+  const description=$('description').value.trim(),price=Math.round(Number($('price').value)*100);
+  if(!description){status('Add a short description.',true);$('description').focus();return}
+  if(!Number.isFinite(price)||price<1||price>99999900){status('Enter a price greater than zero.',true);$('price').focus();return}
+  if(!token){status('Posting isn’t connected yet. Your piece has not been posted. Please keep this page open.',true);return}
+  busy=true;$('post').disabled=true;$('choose').disabled=true;render();status('Posting…');
+  try{
+    let image=editing?.image;
+    const id=editing?.id||'p'+crypto.randomUUID().replaceAll('-','');
+    if(photoData){const path='images/'+id+'-'+Date.now()+'.jpg';await api('PUT',path,{message:'Upload piece photo',content:photoData});image=path}
+    const piece={...(editing||{}),id,image,description,price,sold:editing?.sold||false,updatedAt:Date.now()};
+    const next=editing?listings.map(x=>x.id===id?piece:x):[...listings,piece];
+    await save(next,editing?'Update piece':'Post piece');reset();status('Posted. The shop will update shortly.');
+  }catch(e){status(e.message||'Couldn’t post. Your photo and details are still here.',true)}
+  finally{busy=false;$('post').disabled=false;$('choose').disabled=false;render()}
+};
+readiness();load();
+</script>
+</body></html>
